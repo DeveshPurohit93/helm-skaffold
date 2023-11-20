@@ -1,0 +1,19 @@
+# skaffold.yaml
+apiVersion: skaffold/v2beta8
+kind: Config
+build:
+  artifacts:
+  - image: your-frontend-image
+    context: ./frontend
+    docker:
+      dockerfile: Dockerfile.frontend
+  - image: your-backend-image
+    context: ./backend
+    docker:
+      dockerfile: Dockerfile.backend
+deploy:
+  kubectl:
+    manifests:
+    - "charts/frontend/templates/*.yaml"
+    - "charts/backend/templates/*.yaml"
+  kubeContext: docker-desktop
